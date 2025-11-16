@@ -4,17 +4,17 @@ import plotly.graph_objects as go
 from scipy.stats import norm
 
 # ===============================
-# 📊 Configuration de la page
+# Configuration de la page
 # ===============================
 st.set_page_config(page_title="Binomial vs Black-Scholes", page_icon="📈", layout="wide")
 
-st.title("📊 Convergence du modèle binomial vers Black-Scholes")
+st.title(" Convergence du modèle binomial vers Black-Scholes")
 st.markdown("""
 Cette application montre *le passage du modèle discret (Binomial) vers le modèle continu (Black–Scholes)*.
 """)
 
 # ===============================
-# ⚙️ Entrées utilisateur
+#  Entrées utilisateur
 # ===============================
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -28,7 +28,7 @@ with col3:
     option_type = st.selectbox("Type d’option", ["Call", "Put"])
 
 # ===============================
-# 📘 Fonctions de calcul
+#  Fonctions de calcul
 # ===============================
 def black_scholes(S0, K, r, sigma, T, option_type):
     d1 = (np.log(S0 / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
@@ -54,10 +54,10 @@ def binomial_option_price(S0, K, r, sigma, T, N, option_type):
     return payoff[0]
 
 # ===============================
-# 📈 Calcul et visualisation
+#  Calcul et visualisation
 # ===============================
 st.divider()
-st.subheader("🔢 Simulation")
+st.subheader(" Simulation")
 
 max_steps = st.slider("Nombre maximal d’étapes binomiales", 10, 1000, 100)
 steps_range = np.arange(1, max_steps + 1, max_steps // 50 or 1)
@@ -86,9 +86,9 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 # ===============================
-# 🧾 Résultats numériques
+#  Résultats numériques
 # ===============================
-st.subheader("📋 Résultats")
+st.subheader(" Résultats")
 colA, colB = st.columns(2)
 with colA:
     st.metric(label="Prix Black-Scholes", value=f"{bs_price:.4f}")
@@ -96,5 +96,5 @@ with colB:
     st.metric(label=f"Prix Binomial (N = {max_steps})", value=f"{binomial_prices[-1]:.4f}")
 
 st.markdown("""
-✅ *Observation :* Quand le nombre d’étapes \(N\) augmente, le prix binomial *converge* vers le prix continu Black–Scholes.
+ *Observation :* Quand le nombre d’étapes \(N\) augmente, le prix binomial *converge* vers le prix continu Black–Scholes.
 """)
